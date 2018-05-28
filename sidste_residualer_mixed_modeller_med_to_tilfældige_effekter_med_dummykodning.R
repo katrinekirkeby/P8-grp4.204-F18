@@ -1,0 +1,102 @@
+lmupdatesys <- lm(Pigmentering ~ AFR + rs108T + rs122CT + rs123G + rs129GA + rs139CT + 
+                    rs140G + rs142G + rs142GA + rs442T + rs611G + rs611GC + Stedballe + 
+                    Stedpande, data = Dummy)
+res <- residuals(lmupdatesys)
+Dummy$måling <- rep(NA,nrow(Dummy))
+Dummy$måling[Dummy$Sted=='arm'] <- rep(c('a1','a2','a3'),421)
+Dummy$måling[Dummy$Sted=='buttock'] <- rep(c('b1','b2','b3'),421)
+Dummy$måling[Dummy$Sted=='face'] <- rep(c('p1','p2','p3'),421)
+any(is.na(Dummy$måling))
+plot(res~factor(måling), data=Dummy, ylab='Samlet residual', xlab='Måling')
+resa1 <- res[Dummy$måling=='a1']
+resa2 <- res[Dummy$måling=='a2']
+resa3 <- res[Dummy$måling=='a3']
+resb1 <- res[Dummy$måling=='b1']
+resb2 <- res[Dummy$måling=='b2']
+resb3 <- res[Dummy$måling=='b3']
+resp1 <- res[Dummy$måling=='p1']
+resp2 <- res[Dummy$måling=='p2']
+resp3 <- res[Dummy$måling=='p3']
+par(mfrow=c(3,3))
+plot(resa1,resa2,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm1',ylab='Samlet residual arm2')
+abline(lm(resa2~resa1),col='red')
+plot(resa1,resa3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm1',ylab='Samlet residual arm3')
+abline(lm(resa3~resa1),col='red')
+plot(resa2,resa3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm2',ylab='Samlet residual arm3')
+abline(lm(resa3~resa2),col='red')
+plot(resb1,resb2,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual balle1',ylab='Samlet residual balle2')
+abline(lm(resb2~resb1),col='red')
+plot(resb1,resb3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual balle1',ylab='Samlet residual balle3')
+abline(lm(resb3~resb1),col='red')
+plot(resb2,resb3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual balle2',ylab='Samlet residual balle3')
+abline(lm(resb3~resb2),col='red')
+plot(resp1,resp2,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual pande1',ylab='Samlet residual pande2')
+abline(lm(resp2~resp1),col='red')
+plot(resp1,resp3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual pande1',ylab='Samlet residual pande3')
+abline(lm(resp3~resp1),col='red')
+plot(resp2,resp3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual pande2',ylab='Samlet residual pande3')
+abline(lm(resp3~resp2),col='red')
+
+par(mfrow=c(3,9))
+plot(resa1,resb1,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm1',ylab='Samlet residual balle1')
+abline(lm(resb1~resa1),col='red')
+plot(resa1,resb2,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm1',ylab='Samlet residual balle2')
+abline(lm(resb2~resa1),col='red')
+plot(resa1,resb3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm1',ylab='Samlet residual balle3')
+abline(lm(resb3~resa1),col='red')
+plot(resa1,resp1,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm1',ylab='Samlet residual pande1')
+abline(lm(resp1~resa1),col='red')
+plot(resa1,resp2,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm1',ylab='Samlet residual pande2')
+abline(lm(resp2~resa1),col='red')
+plot(resa1,resp3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm1',ylab='Samlet residual pande3')
+abline(lm(resp3~resa1),col='red')
+
+plot(resa2,resb1,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm2',ylab='Samlet residual balle1')
+abline(lm(resb1~resa2),col='red')
+plot(resa2,resb2,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm2',ylab='Samlet residual balle2')
+abline(lm(resb2~resa2),col='red')
+plot(resa2,resb3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm2',ylab='Samlet residual balle3')
+abline(lm(resb3~resa2),col='red')
+plot(resa2,resp1,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm2',ylab='Samlet residual pande1')
+abline(lm(resp1~resa2),col='red')
+plot(resa2,resp2,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm2',ylab='Samlet residual pande2')
+abline(lm(resp2~resa2),col='red')
+plot(resa2,resp3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm2',ylab='Samlet residual pande3')
+abline(lm(resp3~resa2),col='red')
+
+plot(resa3,resb1,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm3',ylab='Samlet residual balle1')
+abline(lm(resb1~resa3),col='red')
+plot(resa3,resb2,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm3',ylab='Samlet residual balle2')
+abline(lm(resb2~resa3),col='red')
+plot(resa3,resb3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm3',ylab='Samlet residual balle3')
+abline(lm(resb3~resa3),col='red')
+plot(resa3,resp1,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm3',ylab='Samlet residual pande1')
+abline(lm(resp1~resa3),col='red')
+plot(resa3,resp2,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm3',ylab='Samlet residual pande2')
+abline(lm(resp2~resa3),col='red')
+plot(resa3,resp3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual arm3',ylab='Samlet residual pande3')
+abline(lm(resp3~resa3),col='red')
+
+plot(resb1,resp1,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual balle1',ylab='Samlet residual pande1')
+abline(lm(resp1~resb1),col='red')
+plot(resb1,resp2,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual balle1',ylab='Samlet residual pande2')
+abline(lm(resp2~resb1),col='red')
+plot(resb1,resp3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual balle1',ylab='Samlet residual pande3')
+abline(lm(resp3~resb1),col='red')
+
+plot(resb2,resp1,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual balle2',ylab='Samlet residual pande1')
+abline(lm(resp1~resb2),col='red')
+plot(resb2,resp2,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual balle2',ylab='Samlet residual pande2')
+abline(lm(resp2~resb2),col='red')
+plot(resb2,resp3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual balle2',ylab='Samlet residual pande3')
+abline(lm(resp3~resb2),col='red')
+
+plot(resb3,resp1,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual balle3',ylab='Samlet residual pande1')
+abline(lm(resp1~resb3),col='red')
+plot(resb3,resp2,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual balle3',ylab='Samlet residual pande2')
+abline(lm(resp2~resb3),col='red')
+plot(resb3,resp3,xlim=c(-6,7),ylim=c(-6,7),xlab = 'Samlet residual balle3',ylab='Samlet residual pande3')
+abline(lm(resp3~resb3),col='red')
+
+xtable(cov(cbind(resa1,resa2,resa3,resb1,resb2,resb3,resp1,resp2,resp3)))
+
