@@ -187,6 +187,6 @@ ggplot()+geom_point(aes(Model,Krydsvalideringsscore, size=Parametre)) + geom_err
 
 Model <- c('lmballeAIC','lmballeBIC','SNPfuldlmballe','SNPlmballeAIC','SNPlmballeBIC')
 Krydsvalideringsscore <- c(mean(CVracelmstepAIC),mean(CVracelmstep),mean(CVfuldlm),mean(CVlmstepAIC),mean(CVlmstep))
-sd <- c(sd(CVracelmstepAIC),sd(CVracelmstep),sd(CVfuldlm),sd(CVlmstepAIC),sd(CVlmstep))
+sd <- (1/sqrt(10))*c(sd(CVracelmstepAIC),sd(CVracelmstep),sd(CVfuldlm),sd(CVlmstepAIC),sd(CVlmstep))
 Parametre <- c(30,15,46,26,17)
 ggplot()+geom_point(aes(Model,Krydsvalideringsscore, size=Parametre)) + geom_errorbar(aes(x=Model, ymin=Krydsvalideringsscore-sd, ymax=Krydsvalideringsscore+sd),width=0.25) + geom_hline(yintercept=Krydsvalideringsscore[which.min(Krydsvalideringsscore)]+sd[which.min(Krydsvalideringsscore)], linetype='dashed')
