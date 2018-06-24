@@ -4,6 +4,50 @@ library(hydroGOF)
 library(ggplot2)
 library(xtable)
 
+#Omkoder referenceniveau
+hudcomplete[,2] <- relevel(hudcomplete[,2],ref = 'CT')
+hudcomplete[,3] <- relevel(hudcomplete[,3],ref = 'CT')
+hudcomplete[,4] <- relevel(hudcomplete[,4],ref = 'CT')
+hudcomplete[,5] <- relevel(hudcomplete[,5],ref = 'GA')
+hudcomplete[,6] <- relevel(hudcomplete[,6],ref = 'CT')
+hudcomplete[,7] <- relevel(hudcomplete[,7],ref = 'GA')
+hudcomplete[,8] <- relevel(hudcomplete[,8],ref = 'AT')
+hudcomplete[,9] <- relevel(hudcomplete[,9],ref = 'CA')
+hudcomplete[,10] <- relevel(hudcomplete[,10],ref = 'GA')
+hudcomplete[,11] <- relevel(hudcomplete[,11],ref = 'GC')
+hudcomplete[,12] <- relevel(hudcomplete[,12],ref = 'CT')
+hudcomplete[,13] <- relevel(hudcomplete[,13],ref = 'GA')
+hudcomplete[,14] <- relevel(hudcomplete[,14],ref = 'GA')
+hudcomplete[,15] <- relevel(hudcomplete[,15],ref = 'GC')
+hudcomplete[,16] <- relevel(hudcomplete[,16],ref = 'CT')
+hudcomplete[,17] <- relevel(hudcomplete[,17],ref = 'CT')
+hudcomplete[,18] <- relevel(hudcomplete[,18],ref = 'CT')
+hudcomplete[,19] <- relevel(hudcomplete[,19],ref = 'GA')
+hudcomplete[,20] <- relevel(hudcomplete[,20],ref = 'GA')
+hudcomplete[,21] <- relevel(hudcomplete[,21],ref = 'CT')
+hudcomplete[,22] <- relevel(hudcomplete[,22],ref = 'GT')
+hudcomplete[,23] <- relevel(hudcomplete[,23],ref = 'GC')
+hudcomplete[,24] <- relevel(hudcomplete[,24],ref = 'GT')
+
+#Laver hud data
+hudarm <- hudcomplete[,-c(28,30)]
+hudarm$sted <- 'arm'
+names(hudarm)[28] <- 'pigmentering'
+
+hudballe <- hudcomplete[,-c(29,30)]
+hudballe$sted <- 'balle'
+names(hudballe)[28] <- 'pigmentering'
+
+
+hudpande <- hudcomplete[,-c(28,29)]
+hudpande$sted <- 'pande'
+names(hudpande)[28] <- 'pigmentering'
+
+hud <- rbind(hudarm,hudballe,hudpande)
+hud$sted <- factor(hud$sted)
+
+#Laver dummy data
+
 MMfuldsys <- lm(pigmentering~EUR+AFR+køn+rs101+rs107+rs108+rs112+rs122+rs123+rs126+rs128+rs129+rs132+rs139+rs140+rs142+rs168+rs180+rs203+rs242+rs267+rs442+rs491+rs611+rs674+sted,data=hud)
 
 x <- model.matrix(MMfuldsys)
